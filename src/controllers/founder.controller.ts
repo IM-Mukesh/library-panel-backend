@@ -1,5 +1,5 @@
 import type { Response } from "express";
-import { validationResult } from "express-validator";
+const { validationResult } = require("express-validator");
 import { Founder } from "../models/Founder";
 import { comparePassword } from "../utils/password";
 import { generateFounderToken } from "../utils/jwt";
@@ -16,10 +16,7 @@ export const founderLogin = async (
   res: Response
 ): Promise<void> => {
   try {
-    // console.log("Inside founder login...");
-
     const errors = validationResult(req);
-    console.log("config is", config.NODE_ENV);
 
     if (!errors.isEmpty()) {
       const firstErrorMsg = errors.array()[0]?.msg || "Invalid input";
@@ -75,8 +72,6 @@ export const founderLogin = async (
  * POST /api/founder/logout
  */
 export const logoutFounder = (_req: IFounderRequest, res: Response) => {
-  console.log("✅ Entered logoutFounder controller");
-
   try {
     res.clearCookie("token", {
       httpOnly: true,

@@ -19,7 +19,6 @@ const app = express();
 app.use(helmet());
 app.use(cookieParser());
 const allowedOrigins = process.env["ALLOWED_ORIGINS"]?.split(",") || [];
-console.log("allowed origins", allowedOrigins);
 
 app.use(
   cors({

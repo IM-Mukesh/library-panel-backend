@@ -29,15 +29,11 @@ export const authenticateFounder = (
       return;
     }
 
-    // req.founder = decoded;
-    console.log("hello brother");
-
     req.founder = {
       id: decoded["founderId"], // 👈 this fixes the mismatch
       email: decoded.email,
       role: decoded.role,
     };
-    console.log("line 40", decoded);
 
     next();
   } catch (error) {

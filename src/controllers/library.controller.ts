@@ -1,5 +1,5 @@
 import type { Response } from "express";
-import { validationResult } from "express-validator";
+const { validationResult } = require("express-validator");
 import { Library } from "../models/Library";
 // import { generateLibraryCode } from "../utils/library-code";
 import {
@@ -23,8 +23,6 @@ export const getLibraries = async (
   res: Response
 ): Promise<void> => {
   try {
-    console.log("hi 381");
-
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       sendError(res, "Validation failed", 400, errors.array()[0]?.msg);
