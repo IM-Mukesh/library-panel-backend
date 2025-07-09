@@ -1,6 +1,7 @@
 import type { Response } from "express";
 const { validationResult } = require("express-validator");
 import { Library } from "../models/Library";
+import bcrypt from "bcrypt";
 // import { generateLibraryCode } from "../utils/library-code";
 import {
   hashPassword,
@@ -383,5 +384,42 @@ export const libraryLogin = async (
   } catch (error) {
     console.error("Library login error:", error);
     sendError(res, "Login failed", 500);
+  }
+};
+
+export const changePassword = async (req: Request, res: Response) => {
+  try {
+    const libraryId = req?.library?.libraryId;
+
+    const { oldPassword, newPassword } = req.body;
+
+    if (!libraryId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    if (!oldPassword || !newPassword) {
+      return res
+        .status(400)
+        .json({ message: "Both old and new passwords are required" });
+    }
+
+    const library = await Library.findById(libraryId);
+    if (!library) {
+      return res.status(404).json({ message: "Library not found" });
+    }
+
+    const isMatch = await bcrypt.compare(oldPassword, library.passwordHash);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Old password is incorrect" });
+    }
+
+    const hashed = await bcrypt.hash(newPassword, 10);
+    library.passwordHash = hashed;
+    await library.save();
+
+    return res.status(200).json({ message: "Password updated successfully" });
+  } catch (error) {
+    console.error("Change password error:", error);
+    return res.status(500).json({ message: "Server error" });
   }
 };

@@ -55,3 +55,38 @@ export const verifyToken = (
     | IFounderJwtPayload
     | ILibraryJwtPayload;
 };
+
+// export const verifyToken = (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ) => {
+//   const authHeader = req.headers["authorization"];
+
+//   if (!authHeader || !authHeader.startsWith("Bearer ")) {
+//     return res.status(401).json({
+//       success: false,
+//       message: "Missing or invalid Authorization header",
+//     });
+//   }
+
+//   const token = authHeader.split(" ")[1];
+
+//   try {
+//     const decoded = jwt.verify(token, JWT_SECRET) as
+//       | IFounderJwtPayload
+//       | ILibraryJwtPayload;
+
+//     if ("libraryId" in decoded) {
+//       req.libraryId = decoded.libraryId; // ✅ Now recognized by TypeScript
+//     }
+
+//     next();
+//   } catch (err) {
+//     console.error("JWT ERROR:", err);
+//     return res.status(401).json({
+//       success: false,
+//       message: "Invalid token",
+//     });
+//   }
+// };

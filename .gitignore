@@ -22,3 +22,5 @@ npm-debug.log*
 # TypeScript
 dist/
 *.tsbuildinfo
+interview
+src/readme.md

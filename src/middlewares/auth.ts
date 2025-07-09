@@ -17,9 +17,16 @@ export const authenticateFounder = (
   next: NextFunction
 ): void => {
   try {
-    const token = req.cookies["token"]; // ✅ From cookie, not header
+    let token = req.cookies["token"];
     if (!token) {
-      sendError(res, "Access token required", 401);
+      const authHeader = req.headers["authorization"];
+      if (authHeader && authHeader.startsWith("Bearer ")) {
+        token = authHeader.split(" ")[1];
+      }
+    }
+
+    if (!token) {
+      sendError(res, "Access token requireds", 401);
       return;
     }
 
@@ -67,6 +74,7 @@ export const authenticateLibrary = (
     }
 
     req.library = decoded;
+
     next();
   } catch (error) {
     sendError(res, "Invalid or expired token", 401);

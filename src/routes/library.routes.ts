@@ -8,7 +8,7 @@ import {
   markLibraryPaid,
   libraryLogin,
 } from "../controllers/library.controller";
-import { authenticateFounder } from "../middlewares/auth";
+import { authenticateFounder, authenticateLibrary } from "../middlewares/auth";
 import {
   validateLibraryCreation,
   validateLibraryFilters,
@@ -22,6 +22,7 @@ import {
   getDashboardStats,
   getRecentActivities,
 } from "../controllers/library.controller";
+import { dashboardStats } from "../controllers/dashboardController";
 
 // 👇 Add after other founder-protected routes
 
@@ -53,7 +54,7 @@ router.get("/dashboard/recent", authenticateFounder, getRecentActivities);
 
 // Library admin routes
 router.post("/login", authLimiter, validateLibraryLogin, libraryLogin);
-
+router.post("/admin-dashboard", authenticateLibrary, dashboardStats);
 // Protected library admin routes (with access control)
 // Add more library admin specific routes here as needed
 // Example: router.get('/dashboard', authenticateLibrary, checkLibraryAccess, getDashboard);
