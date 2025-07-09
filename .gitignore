@@ -18,6 +18,7 @@ npm-debug.log*
 # IDE-specific
 .vscode/
 .idea/
+scripts
 
 # TypeScript
 dist/
