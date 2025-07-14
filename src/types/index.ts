@@ -19,6 +19,7 @@ export interface ILibrary {
   adminName: string;
   adminEmail: string;
   adminPhone: string;
+  profileImage: string;
   passwordHash: string;
   address: string;
   status: "active" | "inactive";

@@ -10,6 +10,7 @@ const studentSchema = new Schema({
 
   gender: { type: String, enum: ["Male", "Female", "Other"], required: true },
   dateOfBirth: { type: Date, required: true },
+  profileImage: { type: String, default: "" },
 
   shift: {
     type: String,

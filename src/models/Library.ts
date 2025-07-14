@@ -15,6 +15,7 @@ const librarySchema = new Schema<ILibraryDocument>({
     trim: true,
   },
   adminPhone: { type: String, required: true, trim: true },
+  profileImage: { type: String, default: "" },
   passwordHash: { type: String, required: true },
   address: { type: String, required: true, trim: true },
   status: { type: String, enum: ["active", "inactive"], default: "active" },

@@ -9,6 +9,9 @@ interface IConfig {
   JWT_SECRET: string;
   JWT_EXPIRE: string;
   BCRYPT_ROUNDS: number;
+  S3_REGION: string;
+  S3_ACCESS_KEY_ID: string;
+  S3_SECRET_ACCESS_KEY: string;
 }
 
 export const config: IConfig = {
@@ -19,6 +22,9 @@ export const config: IConfig = {
   JWT_SECRET: process.env["JWT_SECRET"] || "mukeshvikashlibrary",
   JWT_EXPIRE: process.env["JWT_EXPIRE"] || "7d",
   BCRYPT_ROUNDS: Number.parseInt(process.env["BCRYPT_ROUNDS"] || "12", 10),
+  S3_REGION: process.env["S3_REGION"],
+  S3_ACCESS_KEY_ID: process.env["S3_ACCESS_KEY_ID"],
+  S3_SECRET_ACCESS_KEY: process.env["S3_SECRET_ACCESS_KEY"],
 };
 
 // Validate required environment variables

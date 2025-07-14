@@ -46,3 +46,18 @@ declare global {
     }
   }
 }
+
+// types/express/index.d.ts
+
+// Extend multer-s3 file type
+declare module "multer-s3" {
+  namespace MulterS3 {
+    interface File extends Express.Multer.File {
+      location: string;
+      key: string;
+      bucket: string;
+      acl: string;
+      contentType: string;
+    }
+  }
+}

@@ -16,8 +16,16 @@ export const getLatestVersion = async (_req: Request, res: Response) => {
 
 export const createVersion = async (req: Request, res: Response) => {
   try {
-    const newVersion = await AppVersionModel.create(req.body);
-    return res.status(201).json(newVersion);
+    const updatedVersion = await AppVersionModel.findOneAndUpdate(
+      {}, // No filter: update any one (or create if none exists)
+      req.body,
+      {
+        new: true, // Return the updated document
+        upsert: true, // Create if not found
+        setDefaultsOnInsert: true,
+      }
+    );
+    return res.status(200).json(updatedVersion);
   } catch (error) {
     return res.status(400).json({ message: "Invalid data", error });
   }
