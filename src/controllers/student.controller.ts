@@ -11,15 +11,12 @@ export const createStudent = async (req: Request, res: Response) => {
   try {
     const libraryId = req.library?.libraryId;
     if (!libraryId) return res.status(401).json({ message: "Unauthorized" });
-    console.log("lib is", libraryId);
 
     const lib = await Library.findById(libraryId);
-    console.log("lib data is", lib);
 
     if (!lib) return res.status(404).json({ message: "Library not found" });
 
     const rollNumber = await generateRollNumber(lib.code);
-    console.log("got rell is", rollNumber);
 
     const student = new Student({
       ...req.body,

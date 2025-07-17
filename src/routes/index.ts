@@ -6,6 +6,9 @@ import paymentRoutes from "./payment.routes";
 import authRoutes from "./auth.routes";
 import appVersionRoutes from "./appVersion.routes";
 import uploadRoute from "./upload.route";
+import salonsRoute from "./salons";
+import reviewRoutes from "./reviews";
+
 import { getSocketIO } from "../socket/io";
 const router = Router();
 
@@ -27,7 +30,9 @@ router.use("/payments", paymentRoutes);
 router.use("/auth", authRoutes);
 router.use("/version", appVersionRoutes);
 router.use("/upload", uploadRoute);
+router.use("/salons", salonsRoute);
 
+router.use("/reviews", reviewRoutes);
 // POST /api/test/emit
 router.post("/test/emit", (req, res) => {
   const { libraryId, message } = req.body;
